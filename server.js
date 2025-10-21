@@ -15,7 +15,36 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Security middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      "default-src": ["'self'"],
+      "script-src": [
+        "'self'",
+        "https://cdn.jsdelivr.net",    // ✅ allow Bootstrap JS & other JSDelivr resources
+        "https://kit.fontawesome.com"  // if using FontAwesome CDN
+      ],
+      "style-src": [
+        "'self'",
+        "https://cdn.jsdelivr.net",
+        "https://fonts.googleapis.com",
+        "'unsafe-inline'"               // ✅ needed for inline Bootstrap styles
+      ],
+      "font-src": [
+        "'self'",
+        "https://cdn.jsdelivr.net",
+        "https://fonts.gstatic.com",
+        "data:"
+      ],
+      "img-src": ["'self'", "data:"],
+      "connect-src": ["'self'"],
+      "object-src": ["'none'"]
+    }
+  },
+  crossOriginEmbedderPolicy: false
+}));
+
 app.use(cors());
 
 // Body parsing middleware

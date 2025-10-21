@@ -9,7 +9,6 @@ router.get('/create', (req, res) => {
   const { name, amount, description, currency, quantity } = req.body;
 
   res.render('payment/create', {
-    user: req.user,
     title: 'Create Payment Link',
     stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
     errors: req.flash('error'),

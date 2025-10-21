@@ -15,7 +15,6 @@ const tableName = process.env.AIRTABLE_TABLE_NAME || 'Users';
  * @returns {Promise<Object|null>} - User object if authenticated, null otherwise
  */
 const authenticateUser = async (email, password) => {
-  console.log('Authenticating user:', email, password);
   try {
     const records = await base(tableName)
       .select({
